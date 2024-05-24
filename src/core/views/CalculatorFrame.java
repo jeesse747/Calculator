@@ -5,6 +5,10 @@
 package core.views;
 
 import calculator.*;
+import core.controllers.AddController;
+import core.controllers.DivideController;
+import core.controllers.MultiplyController;
+import core.controllers.SubtractController;
 import core.models.storage.History;
 import core.models.Operation;
 import java.util.ArrayList;
@@ -19,15 +23,26 @@ import javax.swing.JOptionPane;
 public class CalculatorFrame extends javax.swing.JFrame {
     
     private History history;
-
+    private final AddController addController;
+    private final SubtractController subtractController;
+    private final MultiplyController multiplyController;
+    private final DivideController divideController;
+    
+    
     /**
      * Creates new form Calculator
      */
     public CalculatorFrame() {
         this.history = new History();
+       
+        
+        this.addController = new AddController(history);
+        this.subtractController = new SubtractController(history);
+        this.multiplyController = new MultiplyController(history);
+        this.divideController = new DivideController(history);
         initComponents();
     }
-
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,7 +237,12 @@ public class CalculatorFrame extends javax.swing.JFrame {
             double number2 = Double.parseDouble(numero2.getText());
             double result = calculator.add(number1, number2);
             
-            this.history.addOperation(new Operation(number1, number2, "+", result));
+            this.history.addOperation(new Operation(number1, number2, "+", result) {
+                @Override
+                public double calculate() {
+                    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                }
+            });
             
             resultado.setText("" + result);
         } catch (Exception ex) {
@@ -239,7 +259,12 @@ public class CalculatorFrame extends javax.swing.JFrame {
             double number2 = Double.parseDouble(numero2.getText());
             double result = calculator.subtract(number1, number2);
             
-            this.history.addOperation(new Operation(number1, number2, "-", result));
+            this.history.addOperation(new Operation(number1, number2, "-", result) {
+                @Override
+                public double calculate() {
+                    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                }
+            });
             
             resultado.setText("" + result);
         } catch (Exception ex) {
@@ -256,7 +281,12 @@ public class CalculatorFrame extends javax.swing.JFrame {
             double number2 = Double.parseDouble(numero2.getText());
             double result = calculator.multiply(number1, number2);
             
-            this.history.addOperation(new Operation(number1, number2, "*", result));
+            this.history.addOperation(new Operation(number1, number2, "*", result) {
+                @Override
+                public double calculate() {
+                    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                }
+            });
             
             resultado.setText("" + result);
         } catch (Exception ex) {
@@ -273,7 +303,12 @@ public class CalculatorFrame extends javax.swing.JFrame {
             double number2 = Double.parseDouble(numero2.getText());
             double result = calculator.divide(number1, number2);
             
-            this.history.addOperation(new Operation(number1, number2, "/", result));
+            this.history.addOperation(new Operation(number1, number2, "/", result) {
+                @Override
+                public double calculate() {
+                    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                }
+            });
             
             resultado.setText("" + result);
         } catch (Exception ex) {

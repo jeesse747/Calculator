@@ -8,7 +8,7 @@ package core.models;
  *
  * @author USER
  */
-public class Operation {
+public abstract class Operation {
     
     private double number1;
     private double number2;
@@ -22,6 +22,20 @@ public class Operation {
         this.result = result;
     }
 
+    public double getNumber1() {
+        return number1;
+    }
+
+    public double getNumber2() {
+        return number2;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public abstract double calculate();
+    
     @Override
     public String toString() {
         return number1 + " " + operator + " " + number2 + " = " + result;
