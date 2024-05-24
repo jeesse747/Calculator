@@ -8,7 +8,7 @@ package core.models;
  *
  * @author edangulo
  */
-public class Operation {
+public abstract class Operation {
     
     private double number1;
     private double number2;
