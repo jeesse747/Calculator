@@ -13,8 +13,6 @@ import core.controllers.SubstractionController;
 import core.controllers.utils.Response;
 import core.controllers.utils.Status;
 
-
-
 import core.models.Operation;
 
 import java.util.ArrayList;
@@ -224,6 +222,7 @@ public class CalculatorFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
@@ -232,10 +231,16 @@ public class CalculatorFrame extends javax.swing.JFrame {
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
         Response response = AdditionController.add(number1, number2);
-        if (response.getStatus() >= 400) {
+        if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
-            ResultTextField.setText(response.getObject().toString());
+            if (response.getStatus() >= 400) {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Response message " , JOptionPane.INFORMATION_MESSAGE);
+                ResultTextField.setText(response.getObject().toString());
+            }
+
         }
 
     }//GEN-LAST:event_AddButtonActionPerformed
@@ -246,10 +251,16 @@ public class CalculatorFrame extends javax.swing.JFrame {
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
         Response response = SubstractionController.subtract(number1, number2);
-        if (response.getStatus() >= 400) {
+        if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
-            ResultTextField.setText(response.getObject().toString());
+            if (response.getStatus() >= 400) {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Response message " , JOptionPane.INFORMATION_MESSAGE);
+                ResultTextField.setText(response.getObject().toString());
+            }
+
         }
 
     }//GEN-LAST:event_SubtractButtonActionPerformed
@@ -260,10 +271,16 @@ public class CalculatorFrame extends javax.swing.JFrame {
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
         Response response = MultiplicationController.multiply(number1, number2);
-        if (response.getStatus() >= 400) {
+        if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
-            ResultTextField.setText(response.getObject().toString());
+            if (response.getStatus() >= 400) {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Response message " , JOptionPane.INFORMATION_MESSAGE);
+                ResultTextField.setText(response.getObject().toString());
+            }
+
         }
 
     }//GEN-LAST:event_MultiplyButtonActionPerformed
@@ -274,10 +291,16 @@ public class CalculatorFrame extends javax.swing.JFrame {
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
         Response response = DivisionController.divide(number1, number2);
-        if (response.getStatus() >= 400) {
+        if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
-            ResultTextField.setText(response.getObject().toString());
+            if (response.getStatus() >= 400) {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Response message " , JOptionPane.INFORMATION_MESSAGE);
+                ResultTextField.setText(response.getObject().toString());
+            }
+
         }
 
     }//GEN-LAST:event_DivideButtonActionPerformed
@@ -288,10 +311,16 @@ public class CalculatorFrame extends javax.swing.JFrame {
         String base = Number1TextField.getText();
         String exponent = Number2TextField.getText();
         Response response = PotencyController.potency(base, exponent);
-        if (response.getStatus() >= 400) {
+        if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
-            ResultTextField.setText(response.getObject().toString());
+            if (response.getStatus() >= 400) {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, response.getMessage(), "Response message " , JOptionPane.INFORMATION_MESSAGE);
+                ResultTextField.setText(response.getObject().toString());
+            }
+
         }
 
 
@@ -307,21 +336,21 @@ public class CalculatorFrame extends javax.swing.JFrame {
     private void HistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryButtonActionPerformed
         // TODO add your handling code here:
         Response response = HistoryController.getHistory();
-        if(response.getStatus()==404){
+        if (response.getStatus() == 404) {
             JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
-        }else{
-            if (response.getStatus() >= 500) {
-            JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
-        
         } else {
-            DefaultListModel<String> model = new DefaultListModel<>();
-            for (Operation operation : (ArrayList<Operation>) response.getObject()) {
-                model.addElement(operation.toString());
+            if (response.getStatus() >= 500) {
+                JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                DefaultListModel<String> model = new DefaultListModel<>();
+                for (Operation operation : (ArrayList<Operation>) response.getObject()) {
+                    model.addElement(operation.toString());
+                }
+                HistoryList.setModel(model);
             }
-            HistoryList.setModel(model);
         }
-        }
-        
+
     }//GEN-LAST:event_HistoryButtonActionPerformed
 
     private void ResultTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultTextFieldActionPerformed
