@@ -6,19 +6,21 @@ package core.controllers;
 
 import core.controllers.utils.Decimalchecker;
 import core.controllers.utils.Response;
-import core.controllers.utils.Round;
 import core.controllers.utils.Status;
 import core.models.Addition;
+import core.models.Operation;
 import core.models.storage.History;
 
 /**
  *
  * @author Carlos Ruidiaz M
  */
-public class AdditionController {
+public class AdditionController implements OperationController {
     
-    public static Response add(String number1, String number2) {
-        try{     
+
+    @Override
+    public  Response execute(String number1, String number2) {
+       try{     
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
         }
@@ -42,14 +44,13 @@ public class AdditionController {
             return new Response("Number 2 must be numeric and not empty", Status.BAD_REQUEST); 
         }
         
-        double result = number1doub + number2doub;
-        result = Round.roundToThreeDecimalPlaces(result);
-        Addition add = new Addition(number1doub, number2doub,"+",result);
+        
+        Operation add = new Addition(number1doub, number2doub);
         History history = History.getInstance();
         history.addOperation(add);
-        return new Response("Addition successful", Status.OK, result);
+        return new Response("Addition successful", Status.OK, add.getResult());
         } catch (Exception ex) {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
-        }
+        } 
     }
 }

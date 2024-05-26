@@ -230,7 +230,8 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
-        Response response = AdditionController.add(number1, number2);
+        
+        Response response =new AdditionController().execute(number1, number2);
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
@@ -250,7 +251,7 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
-        Response response = SubstractionController.subtract(number1, number2);
+        Response response = new SubstractionController().execute(number1, number2);
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
@@ -270,7 +271,7 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
-        Response response = MultiplicationController.multiply(number1, number2);
+        Response response = new MultiplicationController().execute(number1, number2);
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
@@ -290,7 +291,7 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
         String number1 = Number1TextField.getText();
         String number2 = Number2TextField.getText();
-        Response response = DivisionController.divide(number1, number2);
+        Response response = new DivisionController().execute(number1, number2);
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {
@@ -310,7 +311,7 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
         String base = Number1TextField.getText();
         String exponent = Number2TextField.getText();
-        Response response = PotencyController.potency(base, exponent);
+        Response response = new PotencyController().execute(base, exponent);
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else {

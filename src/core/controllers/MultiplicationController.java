@@ -16,9 +16,10 @@ import core.models.storage.History;
 import core.models.Multiplication;
 import core.models.Operation;
 
-public class MultiplicationController {
-    
-    public static Response multiply(String number1, String number2) {
+public class MultiplicationController implements OperationController{
+
+    @Override
+    public Response execute(String number1, String number2) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
@@ -44,14 +45,15 @@ public class MultiplicationController {
             return new Response("Number 2 must be numeric and not empty", Status.BAD_REQUEST); 
         }
         
-        double result = number1doub * number2doub;
-        result = Round.roundToThreeDecimalPlaces(result);
-        Operation operation = new Multiplication(number1doub, number2doub, "*", result);
+        
+        Operation operation = new Multiplication(number1doub, number2doub);
         History history = History.getInstance();
         history.addOperation(operation);
-        return new Response("Multiplication successful", Status.OK, result);
+        return new Response("Multiplication successful", Status.OK, operation.getResult());
         } catch (Exception ex) {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    
 }

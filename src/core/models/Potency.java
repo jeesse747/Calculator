@@ -4,14 +4,18 @@
  */
 package core.models;
 
+import core.controllers.utils.Round;
+
 /**
  *
  * @author Carlos Ruidiaz M
  */
 public class Potency extends Operation {
     
-    public Potency(double number1, double number2, String operator, double result) {
-        super(number1, number2, operator, result);
+    public Potency(double number1, double number2) {
+        super(number1, number2);
+        operator = "^";
+        result=Round.roundToThreeDecimalPlaces(Math.pow(number1, number2));
     }
     
 }

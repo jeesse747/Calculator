@@ -10,7 +10,7 @@ import core.models.Operation;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HistoryController {
+public class HistoryController{
     
 
     public static Response getHistory() {

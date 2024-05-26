@@ -8,7 +8,7 @@ import core.controllers.utils.Decimalchecker;
 import core.controllers.utils.Response;
 import core.controllers.utils.Round;
 import core.controllers.utils.Status;
-import core.models.Multiplication;
+
 import core.models.Operation;
 import core.models.Potency;
 import core.models.storage.History;
@@ -17,11 +17,10 @@ import core.models.storage.History;
  *
  * @author Carlos Ruidiaz M
  */
-public class PotencyController {
+public class PotencyController implements OperationController{
 
-    
-    
-    public static Response potency(String base, String exponent){
+    @Override
+    public Response execute(String base, String exponent) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(base)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
@@ -46,16 +45,19 @@ public class PotencyController {
         }catch(NumberFormatException ex){
             return new Response("Number 2 must be numeric and not empty", Status.BAD_REQUEST); 
         }
-        double result = Math.pow(basedoub, exponentdoub);
-        result = Round.roundToThreeDecimalPlaces(result);
-        Operation operation = new Potency(basedoub, exponentdoub, "^", result);
+        
+        Operation operation = new Potency(basedoub, exponentdoub);
         History history = History.getInstance();
         history.addOperation(operation);
-        return new Response("Potency successful", Status.OK, result);
+        return new Response("Potency successful", Status.OK, operation.getResult());
         } catch (Exception ex) {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
+    
+    
     
     
 }

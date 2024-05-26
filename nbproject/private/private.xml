@@ -3,22 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/Addition.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/Calculator.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/Division.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/utils/Status.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/utils/Response.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/SubstractionController.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/AdditionController.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/Substraction.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/storage/History.java</file>
             <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/DivisionController.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/Multiplication.java</file>
             <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/models/Operation.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/MultiplicationController.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/HistoryController.java</file>
+            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/controllers/AdditionController.java</file>
             <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/core/views/CalculatorFrame.java</file>
-            <file>file:/C:/Users/Carlos%20Ruidiaz%20M/Desktop/Parcial%203/Calculator/src/main/Main.java</file>
         </group>
     </open-files>
 </project-private>

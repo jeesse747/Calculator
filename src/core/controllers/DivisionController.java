@@ -12,10 +12,10 @@ import core.models.storage.History;
 import core.models.Division;
 import core.models.Operation;
 
-public class DivisionController {
-   
+public class DivisionController implements OperationController {
 
-    public static Response divide(String number1, String number2) {
+    @Override
+    public Response execute(String number1, String number2) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
@@ -45,12 +45,15 @@ public class DivisionController {
         }
         double result = number1doub / number2doub;
         result = Round.roundToThreeDecimalPlaces(result);
-        Operation operation = new Division(number1doub, number2doub, "/", result);
+        Operation operation = new Division(number1doub, number2doub);
         History history = History.getInstance();
         history.addOperation(operation);
         return new Response("Division successful", Status.OK, result);
         } catch (Exception ex) {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
+    
     }
+   
 }
+    

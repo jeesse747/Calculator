@@ -4,14 +4,18 @@
  */
 package core.models;
 
+import core.controllers.utils.Round;
+
 /**
  *
  * @author Carlos Ruidiaz M
  */
 public class Division extends Operation{
     
-    public Division(double number1, double number2, String operator, double result) {
-        super(number1, number2, operator, result);
+    public Division(double number1, double number2) {
+        super(number1, number2);
+        operator = "/";
+        result = Round.roundToThreeDecimalPlaces(number1/number2);
     }
     
 }
