@@ -9,7 +9,6 @@ import core.controllers.utils.Response;
 import core.controllers.utils.Round;
 import core.controllers.utils.Status;
 import core.models.Addition;
-import core.models.Operation;
 import core.models.storage.History;
 
 /**
@@ -34,8 +33,7 @@ public class AdditionController {
         }catch(NumberFormatException ex){
             return new Response("Number 1 must be numeric and not empty", Status.BAD_REQUEST);
             
-        }
-        
+        }      
         
         try{
             number2doub= Double.parseDouble(number2);

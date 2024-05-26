@@ -11,7 +11,7 @@ import core.controllers.MultiplicationController;
 import core.controllers.PotencyController;
 import core.controllers.SubstractionController;
 import core.controllers.utils.Response;
-import core.controllers.utils.Status;
+
 
 import core.models.Operation;
 
@@ -343,6 +343,7 @@ public class CalculatorFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
 
             } else {
+                JOptionPane.showMessageDialog(this, response.getMessage(), "Response message" , JOptionPane.INFORMATION_MESSAGE);
                 DefaultListModel<String> model = new DefaultListModel<>();
                 for (Operation operation : (ArrayList<Operation>) response.getObject()) {
                     model.addElement(operation.toString());
