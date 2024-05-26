@@ -4,15 +4,21 @@
  */
 package core.views;
 
-import core.models.Addition;
-import core.models.Calculator;
-import core.models.Division;
-import core.models.Multiplication;
-import core.models.storage.History;
+import core.controllers.AdditionController;
+import core.controllers.DivisionController;
+import core.controllers.HistoryController;
+import core.controllers.MultiplicationController;
+import core.controllers.PotencyController;
+import core.controllers.SubstractionController;
+import core.controllers.utils.Response;
+import core.controllers.utils.Status;
+
+
+
 import core.models.Operation;
-import core.models.Substraction;
+
 import java.util.ArrayList;
-import java.util.Collections;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -21,14 +27,12 @@ import javax.swing.JOptionPane;
  * @author edangulo
  */
 public class CalculatorFrame extends javax.swing.JFrame {
-    
-    private History history;
 
     /**
      * Creates new form Calculator
      */
     public CalculatorFrame() {
-        this.history = new History();
+
         initComponents();
     }
 
@@ -224,75 +228,73 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
-        try {
-            Calculator calculator = new Calculator();
-            
-            double number1 = Double.parseDouble(Number1TextField.getText());
-            double number2 = Double.parseDouble(Number2TextField.getText());
-            double result = calculator.add(number1, number2);
-            
-            this.history.addOperation(new Addition(number1, number2, "+", result));
-            
-            ResultTextField.setText("" + result);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+
+        String number1 = Number1TextField.getText();
+        String number2 = Number2TextField.getText();
+        Response response = AdditionController.add(number1, number2);
+        if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else {
+            ResultTextField.setText(response.getObject().toString());
         }
+
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void SubtractButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubtractButtonActionPerformed
         // TODO add your handling code here:
-        try {
-            Calculator calculator = new Calculator();
-            
-            double number1 = Double.parseDouble(Number1TextField.getText());
-            double number2 = Double.parseDouble(Number2TextField.getText());
-            double result = calculator.subtract(number1, number2);
-            
-            this.history.addOperation(new Substraction(number1, number2, "-", result));
-            
-            ResultTextField.setText("" + result);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+
+        String number1 = Number1TextField.getText();
+        String number2 = Number2TextField.getText();
+        Response response = SubstractionController.subtract(number1, number2);
+        if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else {
+            ResultTextField.setText(response.getObject().toString());
         }
+
     }//GEN-LAST:event_SubtractButtonActionPerformed
 
     private void MultiplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MultiplyButtonActionPerformed
         // TODO add your handling code here:
-        try {
-            Calculator calculator = new Calculator();
-            
-            double number1 = Double.parseDouble(Number1TextField.getText());
-            double number2 = Double.parseDouble(Number2TextField.getText());
-            double result = calculator.multiply(number1, number2);
-            
-            this.history.addOperation(new Multiplication(number1, number2, "*", result));
-            
-            ResultTextField.setText("" + result);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+
+        String number1 = Number1TextField.getText();
+        String number2 = Number2TextField.getText();
+        Response response = MultiplicationController.multiply(number1, number2);
+        if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else {
+            ResultTextField.setText(response.getObject().toString());
         }
+
     }//GEN-LAST:event_MultiplyButtonActionPerformed
 
     private void DivideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DivideButtonActionPerformed
         // TODO add your handling code here:
-        try {
-            Calculator calculator = new Calculator();
-            
-            double number1 = Double.parseDouble(Number1TextField.getText());
-            double number2 = Double.parseDouble(Number2TextField.getText());
-            double result = calculator.divide(number1, number2);
-            
-            this.history.addOperation(new Division(number1, number2, "/", result));
-            
-            ResultTextField.setText("" + result);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+
+        String number1 = Number1TextField.getText();
+        String number2 = Number2TextField.getText();
+        Response response = DivisionController.divide(number1, number2);
+        if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else {
+            ResultTextField.setText(response.getObject().toString());
         }
+
     }//GEN-LAST:event_DivideButtonActionPerformed
 
     private void PotencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PotencyButtonActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Not Implemented", "Error", JOptionPane.ERROR_MESSAGE);
+
+        String base = Number1TextField.getText();
+        String exponent = Number2TextField.getText();
+        Response response = PotencyController.potency(base, exponent);
+        if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else {
+            ResultTextField.setText(response.getObject().toString());
+        }
+
+
     }//GEN-LAST:event_PotencyButtonActionPerformed
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
@@ -304,53 +306,28 @@ public class CalculatorFrame extends javax.swing.JFrame {
 
     private void HistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryButtonActionPerformed
         // TODO add your handling code here:
-        ArrayList<Operation> operationHistory = this.history.getOperations();
-        Collections.reverse(this.history.getOperations());
+        Response response = HistoryController.getHistory();
+        if(response.getStatus()==404){
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        }else{
+            if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         
-        DefaultListModel model = new DefaultListModel();
-        model.addAll(operationHistory);
-        HistoryList.setModel(model);
+        } else {
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (Operation operation : (ArrayList<Operation>) response.getObject()) {
+                model.addElement(operation.toString());
+            }
+            HistoryList.setModel(model);
+        }
+        }
+        
     }//GEN-LAST:event_HistoryButtonActionPerformed
 
     private void ResultTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ResultTextFieldActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalculatorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalculatorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalculatorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CalculatorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CalculatorFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;

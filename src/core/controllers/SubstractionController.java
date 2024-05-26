@@ -4,10 +4,52 @@
  */
 package core.controllers;
 
-/**
- *
- * @author Carlos Ruidiaz M
- */
+
+import core.controllers.utils.Decimalchecker;
+import core.controllers.utils.Response;
+import core.controllers.utils.Round;
+import core.controllers.utils.Status;
+import core.models.storage.History;
+import core.models.Substraction;
+import core.models.Operation;
+
 public class SubstractionController {
     
+
+    public static Response subtract(String number1, String number2) {
+        try{
+        if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
+            return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
+        }
+        if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number2)){
+            return new Response("Number 2 must not have more than 3 decimals", Status.BAD_REQUEST);
+        }
+       
+        Double number1doub,number2doub;
+        try{
+            number1doub= Double.parseDouble(number1);
+                 
+        }catch(NumberFormatException ex){
+            return new Response("Number 1 must be numeric and not empty", Status.BAD_REQUEST);
+            
+        }
+        
+        
+        try{
+            number2doub= Double.parseDouble(number2);
+                 
+        }catch(NumberFormatException ex){
+            return new Response("Number 2 must be numeric and not empty", Status.BAD_REQUEST); 
+        }
+        
+        double result = number1doub - number2doub;
+        result = Round.roundToThreeDecimalPlaces(result);
+        Operation operation = new Substraction(number1doub, number2doub, "-", result);
+        History history = History.getInstance();
+        history.addOperation(operation);
+        return new Response("Subtraction successful", Status.OK, result);
+        } catch (Exception ex) {
+            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

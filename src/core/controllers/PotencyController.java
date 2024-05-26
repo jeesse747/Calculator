@@ -4,32 +4,35 @@
  */
 package core.controllers;
 
-/**
- *
- * @author Carlos Ruidiaz M
- */
 import core.controllers.utils.Decimalchecker;
 import core.controllers.utils.Response;
 import core.controllers.utils.Round;
 import core.controllers.utils.Status;
-import core.models.storage.History;
 import core.models.Multiplication;
 import core.models.Operation;
+import core.models.Potency;
+import core.models.storage.History;
 
-public class MultiplicationController {
+/**
+ *
+ * @author Carlos Ruidiaz M
+ */
+public class PotencyController {
+
     
-    public static Response multiply(String number1, String number2) {
+    
+    public static Response potency(String base, String exponent){
         try{
-        if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
+        if(Decimalchecker.hasMoreThanThreeDecimalPlaces(base)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
         }
-        if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number2)){
+        if(Decimalchecker.hasMoreThanThreeDecimalPlaces(exponent)){
             return new Response("Number 2 must not have more than 3 decimals", Status.BAD_REQUEST);
         }
        
-        Double number1doub,number2doub;
+        Double basedoub, exponentdoub;
         try{
-            number1doub= Double.parseDouble(number1);
+            basedoub= Double.parseDouble(base);
                  
         }catch(NumberFormatException ex){
             return new Response("Number 1 must be numeric and not empty", Status.BAD_REQUEST);
@@ -38,20 +41,21 @@ public class MultiplicationController {
         
         
         try{
-            number2doub= Double.parseDouble(number2);
+            exponentdoub= Double.parseDouble(exponent);
                  
         }catch(NumberFormatException ex){
             return new Response("Number 2 must be numeric and not empty", Status.BAD_REQUEST); 
         }
-        
-        double result = number1doub * number2doub;
+        double result = Math.pow(basedoub, exponentdoub);
         result = Round.roundToThreeDecimalPlaces(result);
-        Operation operation = new Multiplication(number1doub, number2doub, "*", result);
+        Operation operation = new Potency(basedoub, exponentdoub, "^", result);
         History history = History.getInstance();
         history.addOperation(operation);
-        return new Response("Multiplication successful", Status.OK, result);
+        return new Response("Potency successful", Status.OK, result);
         } catch (Exception ex) {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    
 }
