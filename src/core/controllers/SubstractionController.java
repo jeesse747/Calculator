@@ -13,11 +13,11 @@ import core.models.storage.History;
 import core.models.Substraction;
 import core.models.Operation;
 
-public class SubstractionController implements OperationController{
+public class SubstractionController {
     
 
-    @Override
-    public Response execute(String number1, String number2) {
+    
+    public static Response substract(String number1, String number2) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);

@@ -15,11 +15,11 @@ import core.models.storage.History;
  *
  * @author Carlos Ruidiaz M
  */
-public class AdditionController implements OperationController {
+public class AdditionController  {
     
 
-    @Override
-    public  Response execute(String number1, String number2) {
+    
+    public static Response add(String number1, String number2) {
        try{     
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);

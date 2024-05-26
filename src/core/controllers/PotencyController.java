@@ -17,10 +17,10 @@ import core.models.storage.History;
  *
  * @author Carlos Ruidiaz M
  */
-public class PotencyController implements OperationController{
+public class PotencyController {
 
-    @Override
-    public Response execute(String base, String exponent) {
+    
+    public static Response pow(String base, String exponent) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(base)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);

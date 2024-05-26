@@ -10,16 +10,15 @@ package core.controllers;
  */
 import core.controllers.utils.Decimalchecker;
 import core.controllers.utils.Response;
-import core.controllers.utils.Round;
 import core.controllers.utils.Status;
 import core.models.storage.History;
 import core.models.Multiplication;
 import core.models.Operation;
 
-public class MultiplicationController implements OperationController{
+public class MultiplicationController {
 
-    @Override
-    public Response execute(String number1, String number2) {
+    
+    public static Response multiply(String number1, String number2) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);

@@ -12,10 +12,10 @@ import core.models.storage.History;
 import core.models.Division;
 import core.models.Operation;
 
-public class DivisionController implements OperationController {
+public class DivisionController  {
 
-    @Override
-    public Response execute(String number1, String number2) {
+    
+    public static Response div(String number1, String number2) {
         try{
         if(Decimalchecker.hasMoreThanThreeDecimalPlaces(number1)){
             return new Response("Number 1 must not have more than 3 decimals", Status.BAD_REQUEST);
